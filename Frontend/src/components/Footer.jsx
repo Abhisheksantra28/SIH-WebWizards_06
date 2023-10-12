@@ -2,6 +2,8 @@ import React from "react";
 import Container from "../container/Container";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import { FaFacebook,FaTwitter,FaLinkedin } from "react-icons/fa6";
+import { GrInstagram } from "react-icons/gr";
 
 const Footer = () => {
   return (
@@ -122,6 +124,20 @@ const Footer = () => {
 
         </div>
       </div>
+
+      <hr />
+
+      <div className="flex flex-col sm:flex-row gap-8  sm:items-center justify-between my-8">
+        <p>@ ABC 20XX --- 20XX. All rights reserved.</p>
+
+        <div className="flex items-center space-x-5">
+          <div className=" w-8 text-2xl cursor-pointer hover:-translate-y-2 transition-all duration-300 hover:text-slate-400">  <FaFacebook /> </div>
+          <div className=" w-8 text-2xl cursor-pointer hover:-translate-y-2 transition-all duration-300 hover:text-slate-400">  <GrInstagram /> </div>
+          <div className=" w-8 text-2xl cursor-pointer hover:-translate-y-2 transition-all duration-300 hover:text-slate-400">  <FaTwitter /> </div>
+          <div className=" w-8 text-2xl cursor-pointer hover:-translate-y-2 transition-all duration-300 hover:text-slate-400">  <FaLinkedin /> </div>
+        </div >
+      </div>
+       
     </Container>
   );
 };
