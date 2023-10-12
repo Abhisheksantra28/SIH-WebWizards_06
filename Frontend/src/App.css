@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.gradient-bg {
+  background-color: #ee9ae5;
+  background-image: linear-gradient(101deg, #ee9ae5 0%, #5b82f5 100%);
+}
+
+.BtnPrimary {
+  @apply py-3 px-8 bg-secondary rounded font-semibold text-white hover:bg-primary  transition-all duration-300 ;
+}
