@@ -38,3 +38,32 @@ export const signIn = async (req, res, next) => {
 
   sendCookie(user, res, 200, `welcome back ${user.name}`);
 };
+
+export const googleSignIn = async (req, res, next) => {
+ 
+  try {
+    const { name, email, photo } = req.body;
+    const user = await User.findOne({ email });
+  
+    if (user) {
+      const { password: hashedPassword, ...rest } = user._doc;
+      sendCookie(user, res, 200, `welcome back ${user.name}`);
+    } else {
+      const generatePassword = Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
+  
+      const newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        profilePicture: photo,
+      });
+  
+      await newUser.save();
+      sendCookie(newUser, res, 201, "Registered Successfully");
+    }
+  } catch (error) {
+    next(new ErrorHandler(error.message,500))
+  }
+ 
+};
