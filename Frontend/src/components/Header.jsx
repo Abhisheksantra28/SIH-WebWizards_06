@@ -67,7 +67,7 @@ const Header = () => {
                 <span>Language</span>
               </Link>
               <button className="bg-secondary py-2 px-4 transition-all duration-300 rounded hover:text-white hover:bg-indigo-500">
-                Sign up
+               <Link to={"/signup"}>Sign up</Link> 
               </button>
             </div>
 

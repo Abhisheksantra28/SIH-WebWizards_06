@@ -26,7 +26,7 @@ const Footer = () => {
             <input
               type="email"
               name="email"
-              id="email"
+              id="emailf"
               placeholder="example@email.com"
               className="bg-[#9A7AF159] py-2 px-4 rounded-md focus:outline-none "
             />

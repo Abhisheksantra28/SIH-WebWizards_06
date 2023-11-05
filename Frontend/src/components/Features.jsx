@@ -20,7 +20,8 @@ const Features = () => {
 
           {/* Features card right side*/}
           <div className="w-full lg:w-3/4">
-            <div className=" grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 items-start md:gap-12 gap-8  mx-4"> 
+          
+            <div className=" grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  items-start md:gap-12 gap-8  mx-4"> 
 
               <div className="bg-[rgba(255,255,255,0.04)] rounded-[35px] h-96 shadow-3xl p-8 flex justify-center items-center hover:-translate-y-4 transition-all duration-300 cursor-pointer ">
                 <div >
