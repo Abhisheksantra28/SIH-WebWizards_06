@@ -4,7 +4,7 @@ import { GoogleAuthProvider, signInWithPopup, getAuth } from "@firebase/auth";
 import { app } from "../firebase";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { signInSuccess,signInFailure } from "../redux/user/userSlice";
+import { signInSuccess, signInFailure } from "../redux/user/userSlice";
 
 const GoogleAuth = () => {
   const dispatch = useDispatch();
@@ -33,15 +33,12 @@ const GoogleAuth = () => {
         }
       );
 
-      console.log(data)
-      toast.success(data.message)
+      console.log(data);
+      toast.success(data.message);
       dispatch(signInSuccess(data));
-      
-
     } catch (error) {
       toast.error(error.response.data.message);
-      dispatch(signInFailure(error))
-
+      dispatch(signInFailure(error));
     }
   };
   return (
