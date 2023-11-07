@@ -12,3 +12,7 @@ body {
 .BtnPrimary {
   @apply py-3 px-8 bg-secondary rounded font-semibold text-white hover:bg-primary  transition-all duration-300 ;
 }
+
+.GoogleBtn{
+  @apply flex items-center justify-center font-semibold  bg-white  border border-gray-300 rounded-lg shadow-md px-8 py-3  text-gray-800 transition-all duration-300  hover:bg-gray-200 focus:outline-none
+}
