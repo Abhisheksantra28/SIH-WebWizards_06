@@ -6,6 +6,7 @@ import About from "./About";
 import Footer from "./Footer";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import GoogleAuth from "./GoogleAuth";
 
 export {
     Header,
@@ -15,5 +16,6 @@ export {
     About,
     Footer,
     SignIn,
-    SignUp
+    SignUp,
+    GoogleAuth,
 }

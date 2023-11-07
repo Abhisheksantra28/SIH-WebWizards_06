@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import GoogleAuth from "./GoogleAuth";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ const navigate = useNavigate();
 
       toast.success(data.message);
       setLoading(false);
-      navigate("/signin")
+      navigate("/signin");
     } catch (error) {
       toast.error(error.response.data.message);
       setLoading(false);
@@ -74,20 +75,21 @@ const navigate = useNavigate();
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button disabled={loading} className="BtnPrimary uppercase">
+        <button disabled={loading} className="BtnPrimary rounded-lg uppercase">
           {loading ? "Loading..." : "Sign Up"}
         </button>
+        <GoogleAuth />
       </form>
 
       <div className="flex gap-2 mt-5">
-        <p>Have an account?</p>
+        <p>Don&apos;t Have an account?</p>
         <Link to={"/signin"}>
           {" "}
           <span className="text-blue-500"> Sign In</span>
         </Link>
       </div>
 
-      <Toaster/>
+      <Toaster />
     </div>
   );
 };

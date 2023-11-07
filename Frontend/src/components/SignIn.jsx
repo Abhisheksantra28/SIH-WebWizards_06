@@ -3,18 +3,24 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import GoogleAuth from "./GoogleAuth";
+
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const {loading} = useSelector((state)=>state.user)
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      // setLoading(true);
+      dispatch(signInStart());
       const { data } = await axios.post(
         "/api/user/signin",
         { email, password },
@@ -30,11 +36,13 @@ const SignIn = () => {
       setPassword("");
 
       toast.success(data.message);
-      setLoading(false);
+      // setLoading(false);
+      dispatch(signInSuccess(data))
       navigate("/")
     } catch (error) {
       toast.error(error.response.data.message);
-      setLoading(false);
+      // setLoading(false);
+      dispatch(signInFailure(error));
     }
   };
   return (
@@ -63,13 +71,14 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button disabled={loading} className="BtnPrimary uppercase">
+        <button disabled={loading} className="BtnPrimary uppercase rounded-lg">
           {loading ? "Loading..." : "Sign In"}
         </button>
+        <GoogleAuth/>
       </form>
 
       <div className="flex gap-2 mt-5">
-        <p>Dont have an account?</p>
+        <p>Have an account?</p>
         <Link to={"/signup"}>
           <span className="text-blue-500"> Sign Up</span>
         </Link>
