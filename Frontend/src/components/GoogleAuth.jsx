@@ -5,9 +5,13 @@ import { app } from "../firebase";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signInSuccess, signInFailure } from "../redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const GoogleAuth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleGoogleClick = async () => {
     try {
@@ -107,6 +111,7 @@ const GoogleAuth = () => {
         <span>Continue with Google</span>
       </button>
       <Toaster />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

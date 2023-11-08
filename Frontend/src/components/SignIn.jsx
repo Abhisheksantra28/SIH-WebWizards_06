@@ -21,7 +21,7 @@ const SignIn = () => {
     try {
       // setLoading(true);
       dispatch(signInStart());
-      const { data } = await axios.post(
+      const  {data}  = await axios.post(
         "/api/user/signin",
         { email, password },
         {
@@ -37,7 +37,7 @@ const SignIn = () => {
 
       toast.success(data.message);
       // setLoading(false);
-      dispatch(signInSuccess(data))
+      dispatch(signInSuccess(data.user))
       navigate("/")
     } catch (error) {
       toast.error(error.response.data.message);

@@ -7,6 +7,8 @@ import Footer from "./Footer";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import GoogleAuth from "./GoogleAuth";
+import AuthLayout from "./AuthLayout"
+import Profile from "./Profile";
 
 export {
     Header,
@@ -18,4 +20,6 @@ export {
     SignIn,
     SignUp,
     GoogleAuth,
+    AuthLayout,
+    Profile
 }
