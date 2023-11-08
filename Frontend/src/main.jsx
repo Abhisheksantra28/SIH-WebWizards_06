@@ -8,6 +8,7 @@ import { store } from "./redux/store.js";
 import HomePage from "./Pages/HomePage.jsx";
 import LoginPage from "./Pages/LoginPage.jsx";
 import SignUpPage from "./Pages/SignUpPage.jsx";
+import {AuthLayout, Profile} from "./components/index.js"
 
 
 const router = createBrowserRouter([
@@ -22,11 +23,30 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <SignUpPage />,
+        element:(
+          <AuthLayout authentication={false}>
+            <SignUpPage/>
+
+          </AuthLayout>
+        ),
       },
       {
         path: "/signin",
-        element: <LoginPage />,
+        element:(
+          <AuthLayout authentication={false}>
+            <LoginPage/>
+
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/profile",
+        element:(
+          <AuthLayout authentication={true}>
+            <Profile/>
+
+          </AuthLayout>
+        ),
       },
     ],
   },
