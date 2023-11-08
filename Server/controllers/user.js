@@ -20,7 +20,7 @@ export const signUp = async (req, res, next) => {
       password: hashedPassword,
     });
 
-    sendCookie(newUser, res, 201, "Registered Successfully");
+    sendCookie(newUser, res, 201, "Registered Successfully",newUser);
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }
@@ -36,7 +36,7 @@ export const signIn = async (req, res, next) => {
 
   if (!correctPassword) return next(new ErrorHandler("wrong credentials", 401));
 
-  sendCookie(user, res, 200, `welcome back ${user.name}`);
+  sendCookie(user, res, 200, `welcome back ${user.name}`,user);
 };
 
 export const googleSignIn = async (req, res, next) => {
@@ -47,7 +47,7 @@ export const googleSignIn = async (req, res, next) => {
   
     if (user) {
       const { password: hashedPassword, ...rest } = user._doc;
-      sendCookie(user, res, 200, `welcome back ${user.name}`);
+      sendCookie(user, res, 200, `welcome back ${user.name}`,user);
     } else {
       const generatePassword = Math.random().toString(36).slice(-8);
       const hashedPassword = bcryptjs.hashSync(generatePassword, 10);
@@ -60,7 +60,7 @@ export const googleSignIn = async (req, res, next) => {
       });
   
       await newUser.save();
-      sendCookie(newUser, res, 201, "Registered Successfully");
+      sendCookie(newUser, res, 201, "Registered Successfully",newUser);
     }
   } catch (error) {
     next(new ErrorHandler(error.message,500))
