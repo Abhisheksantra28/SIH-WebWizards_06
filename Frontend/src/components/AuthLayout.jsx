@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Protected = ({ children, authentication = true }) => {
@@ -22,7 +22,7 @@ const Protected = ({ children, authentication = true }) => {
     }
 
     setLoading(false);
-  }, [authStatus, navigate,authentication]);
+  }, [authStatus, navigate, authentication]);
 
   return loading ? <h1>Loading...</h1> : <>{children}</>;
 };

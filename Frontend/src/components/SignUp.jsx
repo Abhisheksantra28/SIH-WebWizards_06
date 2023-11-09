@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import GoogleAuth from "./GoogleAuth";
+import Container from "../container/Container";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -41,56 +42,65 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
-      <form action="" onSubmit={handleSubmit} className="flex flex-col gap-4 ">
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Enter your name"
-          className="bg-slate-100 p-3 rounded-lg "
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+    <Container>
+      <div className="p-4 max-w-lg mx-auto">
+        <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4 "
+        >
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your name"
+            className="bg-slate-100 p-3 rounded-lg "
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="example@gmail.com"
-          className="bg-slate-100 p-3 rounded-lg "
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="example@gmail.com"
+            className="bg-slate-100 p-3 rounded-lg "
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          className="bg-slate-100 p-3 rounded-lg "
-          autoComplete="on"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            className="bg-slate-100 p-3 rounded-lg "
+            autoComplete="on"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <button disabled={loading} className="BtnPrimary rounded-lg uppercase">
-          {loading ? "Loading..." : "Sign Up"}
-        </button>
-        <GoogleAuth />
-      </form>
+          <button
+            disabled={loading}
+            className="BtnPrimary rounded-lg uppercase"
+          >
+            {loading ? "Loading..." : "Sign Up"}
+          </button>
+          <GoogleAuth />
+        </form>
 
-      <div className="flex gap-2 mt-5">
-        <p>Don&apos;t Have an account?</p>
-        <Link to={"/signin"}>
-          {" "}
-          <span className="text-blue-500"> Sign In</span>
-        </Link>
+        <div className="flex gap-2 mt-5">
+          <p>Don&apos;t Have an account?</p>
+          <Link to={"/signin"}>
+            {" "}
+            <span className="text-blue-500"> Sign In</span>
+          </Link>
+        </div>
+
+        <Toaster />
       </div>
-
-      <Toaster />
-    </div>
+    </Container>
   );
 };
 
