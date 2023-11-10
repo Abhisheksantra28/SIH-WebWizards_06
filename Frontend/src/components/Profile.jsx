@@ -1,19 +1,55 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Container from "../container/Container";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { app } from "../firebase";
 
 const Profile = () => {
+  const fileRef = useRef(null);
+  const [image, setImage] = useState(undefined);
   const { currentUser } = useSelector((state) => state.user);
+
+
+
+  useEffect(() => {
+    if (image) {
+      handleFileUpload(image);
+    }
+  }, [image]);
+
+  const handleFileUpload = async () => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + image.name;
+    const storageRef = ref(storage,fileName);
+    const uploadTask = uploadBytesResumable(storageRef,image);
+    uploadTask.on[
+      "state_changed",
+      (snapshot) =>{
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("uplod is" + progress + "% done");
+      }
+    ]
+  };
+
   return (
     <Container>
       <div className="p-3 max-w-lg mx-auto">
         <h1 className="text-3xl font-semibold text-center my-7 ">Profile</h1>
 
         <form className="flex flex-col gap-4">
+          <input
+            type="file"
+            ref={fileRef}
+            hidden
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
           <img
             src={currentUser.user.profilePicture}
             alt="profile"
-            className="h-24 w-24  self-center cursor-pointer rounded-full object-cover mt-2"
+            className="h-24 w-24  self-center cursor-pointer rounded-full object-cover "
+            onClick={() => fileRef.current.click()}
           />
 
           <input
@@ -48,12 +84,10 @@ const Profile = () => {
         </form>
 
         <div className="flex justify-between mt-5">
-
-
           <span className="text-red-700 cursor-pointer">Delete Account</span>
 
           <span className="text-red-700 cursor-pointer">Sign Out</span>
-          
+
           {/* <button className="BtnPrimary bg-[#7543fd] hover:bg-[#9A7AF1] 
           hover:opacity-95">Sign Out</button> */}
         </div>
