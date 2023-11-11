@@ -2,34 +2,62 @@ import React, { useEffect, useRef } from "react";
 import Container from "../container/Container";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { app } from "../firebase";
 
 const Profile = () => {
   const fileRef = useRef(null);
   const [image, setImage] = useState(undefined);
+  const [imagePercentage, setImagePercentage] = useState(0);
+  const [immageError, setImmageError] = useState(false);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+
+  console.log(profilePicture);
+
   const { currentUser } = useSelector((state) => state.user);
-
-
 
   useEffect(() => {
     if (image) {
       handleFileUpload(image);
     }
   }, [image]);
-
   const handleFileUpload = async () => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + image.name;
-    const storageRef = ref(storage,fileName);
-    const uploadTask = uploadBytesResumable(storageRef,image);
-    uploadTask.on[
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+
+    uploadTask.on(
       "state_changed",
-      (snapshot) =>{
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("uplod is" + progress + "% done");
+      (snapshot) => {
+        // Calculate the progress percentage
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        // Update the UI with the rounded progress value
+        setImagePercentage(Math.round(progress));
+      },
+      // Handle error
+      (error) => {
+        setImmageError(true);
+        console.log("Image Error ", error);
+      },
+      // Handle success
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+          setProfilePicture(downloadUrl);
+        });
       }
-    ]
+    );
   };
 
   return (
@@ -51,6 +79,18 @@ const Profile = () => {
             className="h-24 w-24  self-center cursor-pointer rounded-full object-cover "
             onClick={() => fileRef.current.click()}
           />
+
+          <p className="text-sm self-center">
+            {immageError ? (
+              <span className="text-red-800 font-semibold">Error uploading image</span>
+            ) : imagePercentage > 0 && imagePercentage < 100 ? (
+              <span>{`Uploading: ${imagePercentage}%`}</span>
+            ) : imagePercentage === 100 ? (
+              <span className="text-green-800 font-semibold">Image upload successfully</span>
+            ) : (
+              ""
+            )}
+          </p>
 
           <input
             defaultValue={currentUser.user.name}
