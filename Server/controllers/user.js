@@ -2,6 +2,7 @@ import ErrorHandler from "../middlewares/errorMiddleware.js";
 import { User } from "../models/User.js";
 import bcryptjs from "bcryptjs";
 import { sendCookie } from "../utils/feature.js";
+import asyncHandler from "../utils/asyncHandler.js"
 
 export const signUp = async (req, res, next) => {
   try {
@@ -67,3 +68,12 @@ export const googleSignIn = async (req, res, next) => {
   }
  
 };
+
+
+export const updateUser = asyncHandler(async(req,res)=>{
+  if(req.user._id !== req.params._id){
+    return next(new ErrorHandler("You can update only your account!",401))  
+  }
+
+  
+})
