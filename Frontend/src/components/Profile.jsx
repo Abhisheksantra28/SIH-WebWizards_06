@@ -89,7 +89,7 @@ const Profile = () => {
               <span className="text-green-800 font-semibold">Image upload successfully</span>
             ) : (
               ""
-            )}
+            )}           
           </p>
 
           <input
